@@ -73,7 +73,7 @@ export const admin = (() => {
             .token(session.getToken())
             .body({ tenor_key: form.value.length ? form.value : null })
             .send()
-            .then(() => util.notify(`成功${form.value.length ? '添加' : '移除'} Tenor 密钥`).success())
+            .then(() => util.notify(`Berhasil ${form.value.length ? 'menambahkan' : 'menghapus'} kunci Tenor`).success())
             .finally(() => {
                 form.disabled = false;
                 btn.restore();
@@ -85,7 +85,7 @@ export const admin = (() => {
      * @returns {void}
      */
     const regenerate = (button) => {
-        if (!util.ask('确定要执行此操作吗？')) {
+        if (!util.ask('Apakah Anda yakin ingin melakukan ini?')) {
             return;
         }
 
@@ -113,7 +113,7 @@ export const admin = (() => {
         const newest = document.getElementById('new_password');
 
         if (old.value.length === 0 || newest.value.length === 0) {
-            util.notify('密码不能为空').warning();
+            util.notify('Kata sandi tidak boleh kosong').warning();
             return;
         }
 
@@ -136,7 +136,7 @@ export const admin = (() => {
 
                 old.value = null;
                 newest.value = null;
-                util.notify('密码修改成功').success();
+                util.notify('Kata sandi berhasil diubah').success();
             })
             .finally(() => {
                 btn.restore(true);
@@ -154,7 +154,7 @@ export const admin = (() => {
         const name = document.getElementById('form-name');
 
         if (name.value.length === 0) {
-            util.notify('姓名不能为空').warning();
+            util.notify('Nama tidak boleh kosong').warning();
             return;
         }
 
@@ -171,7 +171,7 @@ export const admin = (() => {
                 }
 
                 util.safeInnerHTML(document.getElementById('dashboard-name'), `${util.escapeHtml(name.value)}<i class="fa-solid fa-hands text-warning ms-2"></i>`);
-                util.notify('姓名修改成功').success();
+                util.notify('Nama berhasil diubah').success();
             })
             .finally(() => {
                 name.disabled = false;
@@ -231,7 +231,7 @@ export const admin = (() => {
             document.addEventListener('click', (e) => {
                 if (!form.contains(e.currentTarget) && !dropdown.contains(e.currentTarget)) {
                     if (form.value.trim().length <= 0) {
-                        form.setCustomValidity('时区不能为空');
+                        form.setCustomValidity('Zona waktu tidak boleh kosong');
                         form.reportValidity();
                         return;
                     }
@@ -267,12 +267,12 @@ export const admin = (() => {
         const tz = document.getElementById('form-timezone');
 
         if (tz.value.length === 0) {
-            util.notify('时区不能为空').warning();
+            util.notify('Zona waktu tidak boleh kosong').warning();
             return;
         }
 
         if (!Intl.supportedValuesOf('timeZone').includes(tz.value)) {
-            util.notify('不支持该时区').warning();
+            util.notify('Zona waktu tidak didukung').warning();
             return;
         }
 
@@ -288,7 +288,7 @@ export const admin = (() => {
                     return;
                 }
 
-                util.notify('时区修改成功').success();
+                util.notify('Zona waktu berhasil diubah').success();
             })
             .finally(() => {
                 tz.disabled = false;
@@ -300,7 +300,7 @@ export const admin = (() => {
      * @returns {void}
      */
     const logout = () => {
-        if (!util.ask('确定要执行此操作吗？')) {
+        if (!util.ask('Apakah Anda yakin ingin melakukan ini?')) {
             return;
         }
 

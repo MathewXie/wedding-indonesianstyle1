@@ -36,9 +36,9 @@ export const comment = (() => {
      */
     const onNullComment = () => {
         const desc = lang
-            .on('id', '📢 快来分享这份邀请函，让评论更热闹吧！🎉')
+            .on('id', '📢 Yuk bagikan undangan ini agar lebih ramai komentar! 🎉')
             .on('en', '📢 Let\'s share this invitation to get more comments! 🎉')
-            .on('zh', '📢 快来分享这份邀请函，让评论更热闹吧！🎉')
+            .on('zh', '📢 Yuk bagikan undangan ini agar lebih ramai komentar! 🎉')
             .get();
 
         return `<div class="text-center p-4 mx-0 mt-0 mb-3 bg-theme-auto rounded-4 shadow"><p class="fw-bold p-0 m-0" style="font-size: 0.95rem;">${desc}</p></div>`;
@@ -75,7 +75,7 @@ export const comment = (() => {
         const currentShow = showHide.get('show');
 
         button.setAttribute('data-show', isShow ? 'false' : 'true');
-        button.innerText = isShow ? `显示回复 (${ids.length})` : '隐藏回复';
+        button.innerText = isShow ? `Lihat balasan (${ids.length})` : 'Sembunyikan balasan';
         showHide.set('show', isShow ? currentShow.filter((i) => i !== uuid) : [...currentShow, uuid]);
 
         for (const id of ids) {
@@ -102,7 +102,7 @@ export const comment = (() => {
         const isCollapsed = anchor.getAttribute('data-show') === 'false';
 
         util.safeInnerHTML(content, util.convertMarkdownToHTML(util.escapeHtml(isCollapsed ? original : original.slice(0, card.maxCommentLength) + '...')));
-        anchor.innerText = isCollapsed ? '收起' : '展开全文';
+        anchor.innerText = isCollapsed ? 'Lebih sedikit' : 'Selengkapnya';
         anchor.setAttribute('data-show', isCollapsed ? 'true' : 'false');
     };
 
@@ -257,7 +257,7 @@ export const comment = (() => {
      * @returns {Promise<void>}
      */
     const remove = async (button) => {
-        if (!util.ask('确定要执行此操作吗？')) {
+        if (!util.ask('Apakah Anda yakin ingin melakukan ini?')) {
             return;
         }
 
@@ -334,7 +334,7 @@ export const comment = (() => {
         }
 
         if (!gifIsOpen && form.value?.trim().length === 0) {
-            util.notify('评论不能为空').warning();
+            util.notify('Komentar tidak boleh kosong').warning();
             return;
         }
 
@@ -427,7 +427,7 @@ export const comment = (() => {
         const nameValue = name.value;
 
         if (nameValue.length === 0) {
-            util.notify('姓名不能为空').warning();
+            util.notify('Nama tidak boleh kosong').warning();
 
             if (id) {
                 // scroll to form.
@@ -438,7 +438,7 @@ export const comment = (() => {
 
         const presence = document.getElementById('form-presence');
         if (!id && presence && presence.value === '0') {
-            util.notify('请选择您的出席状态').warning();
+            util.notify('Silakan pilih status kehadiran Anda').warning();
             return;
         }
 
@@ -447,7 +447,7 @@ export const comment = (() => {
         const gifCancel = gif.buttonCancel(id);
 
         if (gifIsOpen && !gifId) {
-            util.notify('GIF不能为空').warning();
+            util.notify('GIF tidak boleh kosong').warning();
             return;
         }
 
@@ -457,7 +457,7 @@ export const comment = (() => {
 
         const form = document.getElementById(`form-${id ? `inner-${id}` : 'comment'}`);
         if (!gifIsOpen && form.value?.trim().length === 0) {
-            util.notify('评论不能为空').warning();
+            util.notify('Komentar tidak boleh kosong').warning();
             return;
         }
 
@@ -593,14 +593,14 @@ export const comment = (() => {
 
         const btn = util.disableButton(button);
 
-        if (gif.isOpen(id) && ((!gif.getResultId(id) && isChecklist === isPresent) || util.ask('确定要执行此操作吗？'))) {
+        if (gif.isOpen(id) && ((!gif.getResultId(id) && isChecklist === isPresent) || util.ask('Apakah Anda yakin ingin melakukan ini?'))) {
             await gif.remove(id);
             removeInnerForm(id);
             return;
         }
 
         const form = document.getElementById(`form-inner-${id}`);
-        if (form.value.length === 0 || (util.base64Encode(form.value) === form.getAttribute('data-original') && isChecklist === isPresent) || util.ask('确定要执行此操作吗？')) {
+        if (form.value.length === 0 || (util.base64Encode(form.value) === form.getAttribute('data-original') && isChecklist === isPresent) || util.ask('Apakah Anda yakin ingin melakukan ini?')) {
             removeInnerForm(id);
             return;
         }

@@ -256,10 +256,10 @@ export const guest = (() => {
         const url = new URL('https://calendar.google.com/calendar/render');
         const data = new URLSearchParams({
             action: 'TEMPLATE',
-            text: '谢亚楠与露思的婚礼',
+            text: 'Pernikahan Yanan & Ruth',
             dates: `${formatDate('2026-06-28 09:00')}/${formatDate('2026-06-28 18:00')}`,
-            details: '怀着无比喜悦的心情，我们诚挚地邀请您拨冗参加我们儿女的婚礼。感谢您的关注与祝福，您的莅临将是我们莫大的荣幸与喜乐。',
-            location: '北京市昌平区北七家镇燕丹村266号，邮编102209',
+            details: 'Dengan penuh sukacita, kami mengundang Anda untuk menghadiri acara pernikahan kami. Terima kasih atas perhatian dan doa Anda. Kehadiran Anda merupakan kehormatan besar bagi kami.',
+            location: 'Yandan Village No. 266, Beiqijia Town, Changping District, Beijing, Kode Pos 102209',
             ctz: config.get('tz'),
         });
 

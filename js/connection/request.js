@@ -356,7 +356,7 @@ export const request = (method, path) => {
                 }
 
                 if (err.name === ERROR_TYPE) {
-                    err = new Error('🟥 网络错误或请求频率超限');
+                    err = new Error('🟥 Kesalahan jaringan atau batas permintaan tercapai');
                 }
 
                 alert(err.message ?? String(err));

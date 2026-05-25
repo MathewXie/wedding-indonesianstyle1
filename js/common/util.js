@@ -143,7 +143,7 @@ export const util = (() => {
      * @param {boolean} [replace=false]
      * @returns {object}
      */
-    const disableButton = (button, message = '加载中', replace = false) => {
+    const disableButton = (button, message = 'Memuat', replace = false) => {
         button.disabled = true;
 
         const tmp = button.innerHTML;
@@ -186,7 +186,7 @@ export const util = (() => {
         const data = button.getAttribute('data-copy');
 
         if (!data || data.length === 0) {
-            notify('没有可复制的内容').warning();
+            notify('Tidak ada yang bisa disalin').warning();
             return;
         }
 
@@ -196,7 +196,7 @@ export const util = (() => {
             await navigator.clipboard.writeText(data);
         } catch {
             button.disabled = false;
-            notify('复制失败').error();
+            notify('Gagal menyalin').error();
             return;
         }
 
