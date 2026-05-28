@@ -6,70 +6,40 @@ export const gallery = (() => {
      * @param {string[]} images
      * @returns {HTMLDivElement}
      */
-    const buildCarousel = (images) => {
-        const id = 'carousel-gallery';
+    const buildMasonry = (images) => {
         const wrapper = document.createElement('div');
-        wrapper.id = id;
-        wrapper.className = 'carousel slide mt-4';
-        wrapper.setAttribute('data-aos', 'fade-up');
-        wrapper.setAttribute('data-aos-duration', '1500');
-        wrapper.setAttribute('data-bs-ride', 'carousel');
+        wrapper.className = 'row g-2 mt-3';
 
-        const indicators = document.createElement('div');
-        indicators.className = 'carousel-indicators';
-
-        const inner = document.createElement('div');
-        inner.className = 'carousel-inner rounded-4';
+        const colLeft = document.createElement('div');
+        colLeft.className = 'col-6';
+        const colRight = document.createElement('div');
+        colRight.className = 'col-6';
 
         images.forEach((file, i) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.setAttribute('data-bs-target', `#${id}`);
-            btn.setAttribute('data-bs-slide-to', String(i));
-            btn.setAttribute('aria-label', `Slide ${i + 1}`);
-            if (i === 0) {
-                btn.classList.add('active');
-                btn.setAttribute('aria-current', 'true');
-            }
-            indicators.appendChild(btn);
-
-            const item = document.createElement('div');
-            item.className = i === 0 ? 'carousel-item active' : 'carousel-item';
-
             const img = document.createElement('img');
             img.src = './assets/images/placeholder.webp';
             img.setAttribute('data-src', GALLERY_PATH + encodeURIComponent(file));
+            img.setAttribute('data-file', file);
             img.alt = `image ${i + 1}`;
-            img.className = 'd-block img-fluid cursor-pointer';
+            img.className = 'd-block rounded-3 mb-2 cursor-pointer';
+            img.style.maxWidth = '100%';
+            img.style.width = '100%';
+            img.style.height = 'auto';
             img.addEventListener('click', () => {
                 if (window.undangan && window.undangan.guest) {
                     window.undangan.guest.modal(img);
                 }
             });
 
-            item.appendChild(img);
-            inner.appendChild(item);
+            if (i % 2 === 0) {
+                colLeft.appendChild(img);
+            } else {
+                colRight.appendChild(img);
+            }
         });
 
-        wrapper.appendChild(indicators);
-        wrapper.appendChild(inner);
-
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'carousel-control-prev';
-        prevBtn.type = 'button';
-        prevBtn.setAttribute('data-bs-target', `#${id}`);
-        prevBtn.setAttribute('data-bs-slide', 'prev');
-        prevBtn.innerHTML = '<span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>';
-
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'carousel-control-next';
-        nextBtn.type = 'button';
-        nextBtn.setAttribute('data-bs-target', `#${id}`);
-        nextBtn.setAttribute('data-bs-slide', 'next');
-        nextBtn.innerHTML = '<span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>';
-
-        wrapper.appendChild(prevBtn);
-        wrapper.appendChild(nextBtn);
+        wrapper.appendChild(colLeft);
+        wrapper.appendChild(colRight);
 
         return wrapper;
     };
@@ -102,7 +72,7 @@ export const gallery = (() => {
             return false;
         }
 
-        container.appendChild(buildCarousel(files));
+        container.appendChild(buildMasonry(files));
 
         return true;
     };

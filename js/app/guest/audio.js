@@ -69,8 +69,22 @@ export const audio = (() => {
             music.innerHTML = statePause;
         };
 
-        document.addEventListener('undangan.open', () => {
+        document.addEventListener('undangan.open', async () => {
             music.classList.remove('d-none');
+
+            const currentUrl = document.body.getAttribute('data-audio');
+            if (currentUrl && currentUrl !== url) {
+                try {
+                    const newAudio = new Audio(await cache('audio').withForceCache().get(currentUrl));
+                    newAudio.loop = true;
+                    newAudio.muted = false;
+                    newAudio.autoplay = false;
+                    newAudio.controls = false;
+                    audioEl = newAudio;
+                } catch {
+                    // fallback to original audio
+                }
+            }
 
             if (playOnOpen) {
                 play();

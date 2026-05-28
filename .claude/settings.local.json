@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(cd:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:formspree.io)",
+      "WebSearch",
+      "Bash(npx vercel:*)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:axureshow.com)",
+      "Bash(rm:*)",
+      "Bash(ls:*)"
     ]
   }
 }
